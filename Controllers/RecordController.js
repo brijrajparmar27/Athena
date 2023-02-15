@@ -7,7 +7,7 @@ const PunchIn = async (req, res) => {
   if (exists) {
     let updateOpened = exists.opened;
     console.log(exists);
-    updateOpened.push(Date.now());
+    updateOpened.push(new Date());
     let newRecord = await RecordModel.findByIdAndUpdate(exists._id, {
       opened: updateOpened,
     });
@@ -19,7 +19,7 @@ const PunchIn = async (req, res) => {
       }
     );
   } else {
-    let opened = [Date.now()];
+    let opened = [new Date()];
 
     let record = {
       name: req.query["name"],
@@ -37,4 +37,14 @@ const PunchIn = async (req, res) => {
   }
 };
 
-module.exports = PunchIn;
+const fetchRecords = (req, res) => {
+  RecordModel.find({})
+    .then((records) => {
+      res.json(records).status(200);
+    })
+    .catch((error) => {
+      res.json(error).status(400);
+    });
+};
+
+module.exports = { PunchIn, fetchRecords };
