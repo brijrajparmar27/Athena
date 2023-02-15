@@ -2,7 +2,8 @@ const RecordModel = require("../Models/RecordModel");
 const ImageModel = require("../Models/ImgModel");
 
 const PunchIn = async (req, res) => {
-  const exists = await RecordModel.findOne({ name: req.query["name"] });
+  const { id } = req.params;
+  const exists = await RecordModel.findById(id);
 
   if (exists) {
     let updateOpened = exists.opened;

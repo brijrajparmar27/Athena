@@ -3,6 +3,7 @@ const fileupload = require("express-fileupload");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const Imgrouter = require("./Routes/ImgRouter");
+const MailRouter = require("./Routes/MailRouter");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(fileupload());
 app.use(cors());
 
 app.use("/api", Imgrouter);
+app.use("/api/mailer", MailRouter);
 
 mongoose
   .connect(

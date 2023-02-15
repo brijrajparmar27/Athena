@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const RecordSchema = mongoose.Schema(
   {
     name: String,
-    opened: [],
+    opened: {
+      type: [],
+      default: [],
+    },
+    email: String,
   },
   { collection: "Record" }
 );
