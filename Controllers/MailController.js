@@ -22,8 +22,8 @@ const handleMail = async (email, content, id) => {
     port: 465,
     secure: false,
     auth: {
-      user: "brijrajparmaromegab32@gmail.com",
-      pass: "yuxrgwlmpfpyzsvt",
+      user: process.env.EMAIL,
+      pass: process.env.PASS,
     },
   });
 
