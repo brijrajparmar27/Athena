@@ -1,5 +1,6 @@
 const RecordModel = require("../Models/RecordModel");
 const ImageModel = require("../Models/ImgModel");
+const moment = require("moment");
 
 const PunchIn = async (req, res) => {
   const { id } = req.params;
@@ -8,7 +9,7 @@ const PunchIn = async (req, res) => {
   if (exists) {
     let updateOpened = exists.opened;
     console.log(exists);
-    updateOpened.push(new Date());
+    updateOpened.push(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
     let newRecord = await RecordModel.findByIdAndUpdate(exists._id, {
       opened: updateOpened,
     });
@@ -20,7 +21,7 @@ const PunchIn = async (req, res) => {
       }
     );
   } else {
-    let opened = [new Date()];
+    let opened = [moment().format("dddd, MMMM Do YYYY, h:mm:ss a")];
 
     let record = {
       name: req.query["name"],
