@@ -3,10 +3,12 @@ const ImageModel = require("../Models/ImgModel");
 const moment = require("moment");
 
 const PunchIn = async (req, res) => {
+  console.log("requested acess");
   const { id } = req.params;
   const exists = await RecordModel.findById(id);
 
   if (exists) {
+    console.log("exists");
     let updateOpened = exists.opened;
     console.log(exists);
     updateOpened.push(moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a"));
@@ -21,6 +23,7 @@ const PunchIn = async (req, res) => {
       }
     );
   } else {
+    console.log("is new");
     let opened = [moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a")];
 
     let record = {
