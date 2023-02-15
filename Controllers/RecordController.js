@@ -40,7 +40,8 @@ const PunchIn = async (req, res) => {
 };
 
 const fetchRecords = (req, res) => {
-  RecordModel.find({})
+  const { id } = req.params;
+  RecordModel.findById(id, { opened: 1 })
     .then((records) => {
       res.json(records).status(200);
     })
