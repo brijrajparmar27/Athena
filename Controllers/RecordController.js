@@ -3,43 +3,22 @@ const ImageModel = require("../Models/ImgModel");
 const moment = require("moment");
 
 const PunchIn = async (req, res) => {
-  console.log("requested acess");
   const { id } = req.params;
   const exists = await RecordModel.findById(id);
 
-  if (exists) {
-    console.log("exists");
-    let updateOpened = exists.opened;
-    console.log(exists);
-    updateOpened.push(moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a"));
-    let newRecord = await RecordModel.findByIdAndUpdate(exists._id, {
-      opened: updateOpened,
-    });
-    console.log(newRecord);
-    ImageModel.findById("63eb8080fcb60d7408051cba", { Image: 1 }).then(
-      (image) => {
-        res.send(image.Image).status(200);
-        // console.log(image);
-      }
-    );
-  } else {
-    console.log("is new");
-    let opened = [moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a")];
+  let updateOpened = exists.opened;
+  console.log(exists);
 
-    let record = {
-      name: req.query["name"],
-      opened: opened,
-    };
+  updateOpened.push(moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+  await RecordModel.findByIdAndUpdate(exists._id, {
+    opened: updateOpened,
+  });
 
-    RecordModel.create(record).then(() => {
-      ImageModel.findById("63eb8080fcb60d7408051cba", { Image: 1 }).then(
-        (image) => {
-          res.send(image.Image).status(200);
-          // console.log(image);
-        }
-      );
-    });
-  }
+  ImageModel.findById("63eb8080fcb60d7408051cba", { Image: 1 }).then(
+    (image) => {
+      res.send(image.Image).status(200);
+    }
+  );
 };
 
 const fetchRecords = (req, res) => {
