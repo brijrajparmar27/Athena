@@ -6,7 +6,7 @@ const Router = express.Router();
 
 Router.post("/image/", uploadImage);
 Router.get("/image/:id", PunchIn);
-Router.get("/records/", fetchRecords);
+Router.get("/records/:id", fetchRecords);
 Router.get("/", (req, res) => {
   res.json({ msg: "hello" });
 });
