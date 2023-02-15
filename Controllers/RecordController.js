@@ -9,7 +9,7 @@ const PunchIn = async (req, res) => {
   if (exists) {
     let updateOpened = exists.opened;
     console.log(exists);
-    updateOpened.push(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+    updateOpened.push(moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a"));
     let newRecord = await RecordModel.findByIdAndUpdate(exists._id, {
       opened: updateOpened,
     });
@@ -21,7 +21,7 @@ const PunchIn = async (req, res) => {
       }
     );
   } else {
-    let opened = [moment().format("dddd, MMMM Do YYYY, h:mm:ss a")];
+    let opened = [moment().local().format("dddd, MMMM Do YYYY, h:mm:ss a")];
 
     let record = {
       name: req.query["name"],
