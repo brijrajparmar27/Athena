@@ -11,7 +11,7 @@ const createRecord = async (name, email) => {
   };
 
   const created = await RecordModel.create(record);
-  console.log(created);
+  console.log(created, "--------- 14");
   return created;
 };
 
@@ -42,8 +42,12 @@ const handleMail = async (email, content, id) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Message sent: %s", info.messageId);
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      console.log("Message sent: %s", info.messageId, "--------- 45");
+      console.log(
+        "Preview URL: %s",
+        nodemailer.getTestMessageUrl(info),
+        "--------- 49"
+      );
     }
   });
 };
@@ -51,7 +55,7 @@ const handleMail = async (email, content, id) => {
 const sendMail = async (req, res) => {
   const { name, email, content } = req.body;
   const record = await createRecord(name, email);
-  console.log(record);
+  console.log(record, "--------- 58");
   await handleMail(email, content, record._id);
   res.json(record).status(200);
 };

@@ -7,7 +7,7 @@ const PunchIn = async (req, res) => {
   const exists = await RecordModel.findById(id);
 
   let updateOpened = exists.opened;
-  console.log(exists);
+  console.log(exists, "--------- 10");
 
   updateOpened.push(
     moment().utcOffset(330).format("dddd, MMMM Do YYYY, h:mm:ss a")
